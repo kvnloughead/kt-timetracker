@@ -1,0 +1,22 @@
+{
+  "name": "kt",
+  "version": "0.1.0",
+  "description": "A simple command line time tracker",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "time tracker"
+  ],
+  "author": "Kevin Loughead (https://kevinloughead.com)",
+  "license": "MIT",
+  "bin": {
+    "kt": "./bin/index.js"
+  },
+  "dependencies": {
+    "fs.promises": "^0.1.2",
+    "yargs": "^17.6.2"
+  }
+}
