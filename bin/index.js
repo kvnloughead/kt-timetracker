@@ -4,6 +4,7 @@ const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
 
 const { startTimer } = require('../commands/start');
+const { stopTimer } = require('../commands/stop');
 
 yargs(hideBin(process.argv))
   .command(
@@ -15,10 +16,21 @@ yargs(hideBin(process.argv))
       });
       yargs.positional('time', {
         describe: 'time to start the project',
-        default: 'now',
+        default: new Date(),
       });
     },
     startTimer,
+  )
+  .command(
+    'stop [time]',
+    'stops current timer',
+    (yargs) => {
+      yargs.positional('time', {
+        describe: 'time to stop the project at',
+        default: new Date(),
+      });
+    },
+    stopTimer,
   )
   .example('$0 start side-gig now', 'start side-gig timer now')
   .usage('\nUsage: $0 <command> [options]')

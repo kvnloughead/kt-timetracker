@@ -16,7 +16,9 @@
     "kt": "./bin/index.js"
   },
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "fs.promises": "^0.1.2",
+    "replace": "^1.2.2",
     "yargs": "^17.6.2"
   }
 }

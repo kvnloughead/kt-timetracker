@@ -2,8 +2,10 @@ const { writeToFile } = require('../utils/helpers');
 const { basePath, dataFile } = require('../utils/constants');
 
 const startTimer = (argv) => {
-  const now = Date.now();
-  writeToFile(`${now}\n`, { recursive: true });
+  const entry = `\n${argv.time.toISOString()},current-timer,${argv.project}`;
+  writeToFile(entry, {
+    recursive: true,
+  });
 };
 
 module.exports = { startTimer };
