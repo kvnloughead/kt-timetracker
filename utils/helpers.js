@@ -7,7 +7,7 @@ const { open, mkdir } = require('fs.promises');
 const path = require('path');
 
 const { BASE_PATH, DATA_FILE, HEADERS } = require('../utils/constants');
-const dataFile = path.join(BASE_PATH, DATA_FILE);
+const timeEntries = path.join(BASE_PATH, DATA_FILE);
 
 function createCsvReadStream(path) {
   const result = [];
@@ -55,7 +55,7 @@ function parseCsvLine(line, headers, options = { sep: ',' }) {
 }
 
 async function writeToFile(contents, options) {
-  const { file = dataFile } = options;
+  const { file = timeEntries } = options;
   try {
     // create directory, file, and add CSV headers, if necessary
     await mkdir(path.dirname(file), options);
@@ -80,5 +80,5 @@ module.exports = {
   getLastNonEmptyLine,
   parseCsvLine,
   isActiveTimer,
-  dataFile,
+  timeEntries,
 };

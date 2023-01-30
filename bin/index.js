@@ -1,12 +1,29 @@
 #!/usr/bin/env node
 
+/** kt (keep time) - a command line time tracker */
+
+const findUp = require('find-up');
+const fs = require('fs');
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
+require('dotenv').config();
+
+const configPath = findUp.sync(['.ktrc', '.ktrc.json']);
+const config = configPath ? JSON.parse(fs.readFileSync(configPath)) : {};
 
 const { startTimer } = require('../commands/start');
 const { stopTimer } = require('../commands/stop');
 
-yargs(hideBin(process.argv))
+const argv = yargs(hideBin(process.argv))
+  .env('KT')
+  .default({ timeEntries: './test/time-entires.csv', dev: false })
+  .options({
+    d: {
+      alias: 'dev',
+      describe: 'run in dev mode',
+      type: 'boolean',
+    },
+  })
   .command(
     'start <project> [time]',
     'starts timer for a project',
@@ -42,4 +59,7 @@ yargs(hideBin(process.argv))
   .demandCommand()
   .showHelpOnFail(true, 'Something went wrong')
   .help('h')
-  .alias('h', 'help').argv;
+  .alias('h', 'help')
+  .config(config).argv;
+
+console.log(argv);
