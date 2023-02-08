@@ -64,7 +64,6 @@ async function writeToFile(file, contents, options) {
     // append data to file
     f = await open(file, 'a+');
     f.writeFile(contents);
-    console.log(`wrote ${contents} to ${file}`);
   } catch (err) {
     console.error(err.message);
   } finally {

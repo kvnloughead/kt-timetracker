@@ -2,13 +2,9 @@
 
 /** kt (keep time) - a command line time tracker */
 
-const fs = require('fs');
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
 require('dotenv').config();
-
-// const configPath = `/home/${process.env.USER}/.config/.ktrc.json`;
-// const config = JSON.parse(fs.readFileSync(configPath));
 
 const { startTimer } = require('../commands/start');
 const { stopTimer } = require('../commands/stop');
@@ -16,7 +12,8 @@ const { stopTimer } = require('../commands/stop');
 const argv = yargs(hideBin(process.argv))
   .env('KT')
   .default({
-    timeEntries: `/home/${process.env.USER}/.config/kt/time-entries.csv`,
+    headers: ['start', 'stop', 'project'],
+    timeEntries: `${__dirname}/../test/time-entries.csv`,
   })
   .option('config', {
     describe: 'specify configuration file',
@@ -60,5 +57,3 @@ const argv = yargs(hideBin(process.argv))
   .help('h')
   .alias('h', 'help')
   .config().argv;
-
-console.log(argv.config);
