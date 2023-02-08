@@ -6,8 +6,8 @@ const { execSync } = require('child_process');
 const { open, mkdir } = require('fs.promises');
 const path = require('path');
 
-const { BASE_PATH, DATA_FILE, HEADERS } = require('../utils/constants');
-const timeEntries = path.join(BASE_PATH, DATA_FILE);
+// const { BASE_PATH, DATA_FILE, HEADERS } = require('../utils/constants');
+// const timeEntries = path.join(BASE_PATH, DATA_FILE);
 
 function createCsvReadStream(path) {
   const result = [];
@@ -54,13 +54,12 @@ function parseCsvLine(line, headers, options = { sep: ',' }) {
   return data;
 }
 
-async function writeToFile(contents, options) {
-  const { file = timeEntries } = options;
+async function writeToFile(file, contents, options) {
   try {
     // create directory, file, and add CSV headers, if necessary
     await mkdir(path.dirname(file), options);
     if (!fs.existsSync(file)) {
-      contents = `start,stop,project\n` + contents;
+      contents = `start,stop,project` + contents;
     }
     // append data to file
     f = await open(file, 'a+');
@@ -80,5 +79,5 @@ module.exports = {
   getLastNonEmptyLine,
   parseCsvLine,
   isActiveTimer,
-  timeEntries,
+  // timeEntries,
 };

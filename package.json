@@ -18,8 +18,9 @@
   "dependencies": {
     "csv-parser": "^3.0.0",
     "dotenv": "^16.0.3",
+    "find-up": "^6.3.0",
     "fs.promises": "^0.1.2",
-    "replace": "^1.2.2",
+    "replace-in-file": "^6.3.5",
     "yargs": "^17.6.2"
   }
 }

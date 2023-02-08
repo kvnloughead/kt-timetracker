@@ -2,27 +2,26 @@
 
 /** kt (keep time) - a command line time tracker */
 
-const findUp = require('find-up');
 const fs = require('fs');
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
 require('dotenv').config();
 
-const configPath = findUp.sync(['.ktrc', '.ktrc.json']);
-const config = configPath ? JSON.parse(fs.readFileSync(configPath)) : {};
+// const configPath = `/home/${process.env.USER}/.config/.ktrc.json`;
+// const config = JSON.parse(fs.readFileSync(configPath));
 
 const { startTimer } = require('../commands/start');
 const { stopTimer } = require('../commands/stop');
 
 const argv = yargs(hideBin(process.argv))
   .env('KT')
-  .default({ timeEntries: './test/time-entires.csv', dev: false })
-  .options({
-    d: {
-      alias: 'dev',
-      describe: 'run in dev mode',
-      type: 'boolean',
-    },
+  .default({
+    timeEntries: `/home/${process.env.USER}/.config/kt/time-entries.csv`,
+  })
+  .option('config', {
+    describe: 'specify configuration file',
+    alias: 'cfg',
+    default: `/home/${process.env.USER}/.config/.ktrc.json`,
   })
   .command(
     'start <project> [time]',
@@ -57,9 +56,9 @@ const argv = yargs(hideBin(process.argv))
     description: 'run with verbose logging',
   })
   .demandCommand()
-  .showHelpOnFail(true, 'Something went wrong')
+  .showHelpOnFail(true)
   .help('h')
   .alias('h', 'help')
-  .config(config).argv;
+  .config().argv;
 
-console.log(argv);
+console.log(argv.config);
